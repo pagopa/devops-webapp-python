@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/Users/diego/Library/Caches/pypoetry/virtualenvs/devops-webapp-python-W4rvqIgc-py3.10/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": false,
+    "python.linting.enabled": true,
+}

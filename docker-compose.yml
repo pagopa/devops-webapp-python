@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  fastcash-backend:
+    build:
+      dockerfile: ./Dockerfiles/app.dockerfile
+      context: .
+    container_name: webapp-python
+    env_file:
+      - .env
+    restart: always
+    environment:
+      DEBUG_MODE: ${APP_DEBUG_MODE}
+      VERBOSITY: ${APP_VERBOSITY}
+    ports:
+      - "${APP_DOCKER_PORT:-8044}:${APP_ENDPOINT_PORT:-8000}"
