@@ -1,9 +1,10 @@
 version: "3.8"
 services:
-  fastcash-backend:
-    build:
-      dockerfile: ./Dockerfiles/app.dockerfile
-      context: .
+  webapp-python:
+    image: "devops-webapp-python:latest"
+    # build:
+    #   dockerfile: ./Dockerfiles/app.dockerfile
+    #   context: .
     container_name: webapp-python
     env_file:
       - .env
