@@ -13,7 +13,7 @@ trigger:
       - Dockerfiles/*
       - launch.sh
       - pyproject.toml
-      - *env
+      - env
 
 pr:
   - main
@@ -46,6 +46,9 @@ stages:
         pool:
           vmImage: $(vmImageNameDefault)
         steps:
+          - task: CmdLine@2
+            inputs:
+              script: 'ls -la' 
           - task: Docker@2
             displayName: 'publish_image_to_${{ variables.environment }}'
             condition: succeeded()
