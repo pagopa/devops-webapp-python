@@ -1,0 +1,59 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:
+      - main
+      - release-*
+  paths:
+    include:
+      - app/*
+      - Dockerfiles/*
+      - launch.sh
+      - pyproject.toml
+
+pr:
+  - main
+  - master
+
+resources:
+  - repo: self
+
+variables:
+  dockerfileRelativePath: '$(DOCKERFILE)' # Dockerfile
+
+  # Agent VM image name for Build
+  vmImageNameDefault: 'ubuntu-latest'
+
+  # Image Repository Name
+  imageRepository: '$(docker_image_repository_name)'
+
+  environment: 'LAB'
+  dockerRegistryServiceConnection: '$(LAB_CONTAINER_REGISTRY_SERVICE_CONN)'
+  containerRegistry: '$(LAB_CONTAINER_REGISTRY_NAME)'
+  selfHostedAgentPool: $(LAB_AGENT_POOL)
+
+stages:
+  - stage: 'build_and_publish docker'
+    displayName: 'build_and_pusblih_to_${{ variables.environment }}'
+    dependsOn: []
+    jobs:
+      - job: build docker image
+        displayName: build docker image
+        pool:
+          vmImage: $(vmImageNameDefault)
+        steps:
+          - task: Docker@2
+            displayName: 'publish_image_to_${{ variables.environment }}'
+            condition: succeeded()
+            inputs:
+              command: 'buildAndPush'
+              containerRegistry: '$(dockerRegistryServiceConnection)'
+              repository: '$(imageRepository)'
+              Dockerfile: '$(Build.Repository.LocalPath)/$(dockerfileRelativePath)'
+              buildContext: '$(Build.Repository.LocalPath)'
+              tags: |
+                $(Build.BuildId)
+                latest
