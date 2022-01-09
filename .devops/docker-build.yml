@@ -40,7 +40,7 @@ stages:
     displayName: 'build_and_pusblih_to_${{ variables.environment }}'
     dependsOn: []
     jobs:
-      - job: build and publish docker image
+      - job: build_and_publish_docker_image
         displayName: build docker image
         pool:
           vmImage: $(vmImageNameDefault)
