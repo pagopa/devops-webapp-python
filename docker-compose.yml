@@ -1,16 +1,11 @@
 version: "3.8"
 services:
   webapp-python:
-    image: "devops-webapp-python:latest"
-    # build:
-    #   dockerfile: ./Dockerfiles/app.dockerfile
-    #   context: .
+    # image: "devops-webapp-python:latest"
+    build:
+      dockerfile: ./Dockerfile
+      context: .
     container_name: webapp-python
-    env_file:
-      - .env
     restart: always
-    environment:
-      DEBUG_MODE: ${APP_DEBUG_MODE}
-      VERBOSITY: ${APP_VERBOSITY}
     ports:
-      - "${APP_DOCKER_PORT:-8044}:${APP_ENDPOINT_PORT:-8000}"
+      - "8000:8000"

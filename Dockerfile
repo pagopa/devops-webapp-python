@@ -5,9 +5,13 @@ LABEL name="webapp-python"
 LABEL maintainer="pagopa devops team"
 LABEL version="0.1"
 
-ARG YOUR_ENV="virtualenv"
+ARG YOUR_ENV="virtualenv" \
+    APP_ENDPOINT_PORT=8000 \
+    APP_VERBOSITY="info"
 
 ENV YOUR_ENV=${YOUR_ENV} \
+    APP_ENDPOINT_PORT=${APP_ENDPOINT_PORT} \
+    APP_VERBOSITY=${APP_VERBOSITY} \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
@@ -19,7 +23,8 @@ ENV YOUR_ENV=${YOUR_ENV} \
     LANG=C.UTF-8
 
 # Install poetry dependencies
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y libpq-dev gcc curl \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && apt-get install -y libpq-dev gcc curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -36,7 +41,7 @@ WORKDIR /admin-app
 COPY pyproject.toml .
 #COPY poetry.lock .
 COPY /app ./app
-COPY .env .
+
 COPY launch.sh .
 
 # Install libraries
