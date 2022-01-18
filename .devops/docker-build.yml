@@ -13,6 +13,7 @@ trigger:
       - mayor*
       - chore*
       - bugfix*
+      - \*
   paths:
     include:
       - app/*
