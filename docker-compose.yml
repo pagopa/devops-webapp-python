@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  webapp-python:
+    # image: "devops-webapp-python:latest"
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: webapp-python
+    restart: always
+    ports:
+      - "8000:8000"
