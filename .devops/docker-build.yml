@@ -6,7 +6,6 @@ trigger:
   branches:
     include:
       - main
-      - release-*
   paths:
     include:
       - app/*
@@ -58,5 +57,5 @@ stages:
               repository: '$(imageRepository)'
               Dockerfile: '$(Build.Repository.LocalPath)/$(dockerfileRelativePath)'
               tags: |
-                $(Build.BuildId)
+                $(Build.SourceBranchName)-$(Build.BuildId)
                 latest
