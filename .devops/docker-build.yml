@@ -67,4 +67,3 @@ stages:
               tags: |
                 $(Build.SourceBranchName)-$(Build.BuildId)
                 latest
-
