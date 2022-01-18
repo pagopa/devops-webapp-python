@@ -7,6 +7,12 @@ trigger:
     include:
       - main
       - develop
+      - fix*
+      - patch*
+      - \!*
+      - mayor*
+      - chore*
+      - bugfix*
   paths:
     include:
       - app/*
