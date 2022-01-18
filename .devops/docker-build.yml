@@ -22,7 +22,6 @@ trigger:
       - pyproject.toml
       - .*
 
-
 pr:
   - main
   - master
